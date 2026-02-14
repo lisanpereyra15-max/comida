@@ -1,21 +1,21 @@
-index.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burger Local - Pedidos Online</title>
+    <title>Burger Gusto - Menú Completo</title>
     <style>
         :root {
             --naranja: #f38d2a;
-            --naranja-oscuro: #d4761a;
-            --oscuro: #1a1d20;
-            --gris-card: #25292d;
+            --naranja-brillante: #ff9f43;
+            --oscuro: #121416;
+            --gris-card: #1e2125;
             --blanco: #ffffff;
+            --texto-gris: #a0a0a0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--oscuro);
             color: var(--blanco);
             margin: 0;
@@ -24,129 +24,149 @@ index.html
 
         header {
             text-align: center;
-            padding: 20px;
-            background-color: var(--oscuro);
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, #1e2125, var(--oscuro));
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 3px solid var(--naranja);
+            border: 4px solid var(--naranja);
+            box-shadow: 0 0 20px rgba(243, 141, 42, 0.3);
             object-fit: cover;
+            margin-bottom: 15px;
         }
+
+        h1 { margin: 0; letter-spacing: 2px; color: var(--naranja); }
 
         nav {
             background-color: var(--naranja);
-            padding: 10px;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        nav span { cursor: pointer; }
+        nav span { cursor: pointer; transition: 0.3s; }
+        nav span:hover { color: var(--oscuro); }
 
-        .container {
+        .main-content {
             display: flex;
             flex-wrap: wrap;
-            padding: 20px;
-            gap: 20px;
-            justify-content: center;
+            padding: 30px;
+            gap: 30px;
+            max-width: 1400px;
+            margin: auto;
         }
 
         /* Menu de Productos */
         .menu-grid {
-            flex: 2;
+            flex: 3;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .card {
             background-color: var(--gris-card);
-            border: 2px solid var(--naranja);
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s;
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .card:hover { transform: scale(1.03); }
+        .card:hover {
+            border-color: var(--naranja);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(243, 141, 42, 0.2);
+        }
 
         .card img {
             width: 100%;
-            border-radius: 10px;
-            height: 150px;
+            height: 200px;
             object-fit: cover;
         }
 
-        .price {
-            color: var(--naranja);
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .controls {
+        .card-info {
+            padding: 20px;
+            flex-grow: 1;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .btn-qty {
-            background: var(--oscuro);
-            border: 1px solid var(--naranja);
-            color: white;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            border-radius: 5px;
+        .card h3 { margin: 0 0 10px 0; font-size: 1.4rem; }
+        .card p { color: var(--texto-gris); font-size: 0.9rem; margin-bottom: 15px; }
+
+        .price {
+            color: var(--naranja-brillante);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .btn-add {
             background-color: var(--naranja);
             border: none;
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
         }
+
+        .btn-add:hover { background-color: var(--naranja-oscuro); }
 
         /* Carrito lateral */
         .sidebar {
             flex: 1;
-            min-width: 300px;
+            min-width: 320px;
             background-color: var(--gris-card);
-            padding: 20px;
-            border-radius: 15px;
+            padding: 25px;
+            border-radius: 20px;
             border: 2px solid var(--naranja);
             height: fit-content;
+            position: sticky;
+            top: 100px;
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #444;
-            padding: 10px 0;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            padding: 12px 0;
         }
 
         .total-section {
-            margin-top: 20px;
-            font-size: 1.5rem;
-            border-top: 2px solid var(--naranja);
-            padding-top: 10px;
+            margin-top: 25px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-align: right;
+            color: var(--naranja);
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #121416;
+            color: white;
             box-sizing: border-box;
         }
 
@@ -154,74 +174,125 @@ index.html
             background-color: #25d366;
             color: white;
             border: none;
-            padding: 15px;
+            padding: 18px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 10px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
+        @media (max-width: 900px) {
+            .main-content { flex-direction: column; }
+            .sidebar { position: static; width: auto; }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <img src="logo.jpg" alt="Logo Hamburguesería" class="logo">
+        <img src="logo.jpg" alt="Logo" class="logo">
         <h1>BURGER GUSTO</h1>
+        <p style="color: var(--texto-gris)">Las mejores hamburguesas artesanales de la zona</p>
     </header>
 
     <nav>
-        <span>Hamburguesas</span>
-        <span>Acompañamientos</span>
-        <span>Bebidas</span>
-        <span>Contacto</span>
+        <span>MENÚ</span>
+        <span>PROMOS</span>
+        <span>UBICACIÓN</span>
     </nav>
 
-    <div class="container">
+    <div class="main-content">
         <div class="menu-grid">
+            
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500" alt="Burger">
-                <h3>Doble Bacon Cheese</h3>
-                <p class="price">$8900</p>
-                <button class="btn-add" onclick="agregarAlCarrito('Doble Bacon Cheese', 8900)">Agregar al Carrito</button>
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" alt="Hamburguesa">
+                <div class="card-info">
+                    <h3>Doble Bacon Cheddar</h3>
+                    <p>Doble medallón de carne, mucho cheddar, bacon crocante y salsa especial.</p>
+                    <span class="price">$8.900</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('Doble Bacon Cheddar', 8900)">Agregar +</button>
+                </div>
             </div>
 
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500" alt="Burger">
-                <h3>Clásica con Queso</h3>
-                <p class="price">$7500</p>
-                <button class="btn-add" onclick="agregarAlCarrito('Clásica con Queso', 7500)">Agregar al Carrito</button>
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500" alt="Hamburguesa">
+                <div class="card-info">
+                    <h3>Clásica House</h3>
+                    <p>Medallón 180g, lechuga, tomate, cebolla morada y mayonesa casera.</p>
+                    <span class="price">$7.500</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('Clásica House', 7500)">Agregar +</button>
+                </div>
             </div>
 
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=500" alt="Burger">
-                <h3>Vegetariana Portobello</h3>
-                <p class="price">$8200</p>
-                <button class="btn-add" onclick="agregarAlCarrito('Vegetariana Portobello', 8200)">Agregar al Carrito</button>
+                <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500" alt="Hamburguesa">
+                <div class="card-info">
+                    <h3>Onion Rings Burger</h3>
+                    <p>Aros de cebolla dentro de la burger, barbacoa y doble queso dambo.</p>
+                    <span class="price">$9.200</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('Onion Burger', 9200)">Agregar +</button>
+                </div>
             </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" alt="Hamburguesa">
+                <div class="card-info">
+                    <h3>Veggie Portobello</h3>
+                    <p>Medallón de hongo Portobello, queso de almendras y rúcula fresca.</p>
+                    <span class="price">$8.200</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('Veggie Portobello', 8200)">Agregar +</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?w=500" alt="Hamburguesa">
+                <div class="card-info">
+                    <h3>Triple Stacker</h3>
+                    <p>Tres medallones de carne, triple queso y salsa stacker original.</p>
+                    <span class="price">$11.500</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('Triple Stacker', 11500)">Agregar +</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1573015613030-24791d0f5756?w=500" alt="Papas">
+                <div class="card-info">
+                    <h3>Papas con Cheddar</h3>
+                    <p>Porción grande de papas fritas con lluvia de bacon y verdeo.</p>
+                    <span class="price">$4.500</span>
+                    <button class="btn-add" onclick="agregarAlCarrito('Papas Cheddar', 4500)">Agregar +</button>
+                </div>
+            </div>
+
         </div>
 
         <div class="sidebar">
-            <h3>Tu Pedido 🛒</h3>
+            <h2 style="margin-top:0">Tu Pedido 🛒</h2>
             <div id="items-carrito">
-                <p>El carrito está vacío</p>
+                <p style="color: var(--texto-gris)">No hay productos seleccionados.</p>
             </div>
             
             <div class="total-section">
                 Total: <span id="total-monto">$0</span>
             </div>
 
-            <hr>
-            <label>Tu Nombre:</label>
-            <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez">
+            <div style="margin-top: 20px;">
+                <label>Tu Nombre:</label>
+                <input type="text" id="nombre-cliente" placeholder="¿A quién buscamos?">
+                
+                <label>Dirección / Mesa:</label>
+                <input type="text" id="direccion-cliente" placeholder="Ej: Calle Falsa 123 o Mesa 5">
+            </div>
             
             <button class="btn-whatsapp" onclick="enviarPedido()">
-                Finalizar Pedido por WhatsApp
+                PEDIR POR WHATSAPP
             </button>
         </div>
     </div>
@@ -231,65 +302,64 @@ index.html
         let total = 0;
 
         function agregarAlCarrito(nombre, precio) {
-            // Buscar si el producto ya está en el carrito
             const existe = carrito.find(item => item.nombre === nombre);
-            
             if (existe) {
                 existe.cantidad++;
             } else {
                 carrito.push({ nombre, precio, cantidad: 1 });
             }
-            
             actualizarInterfaz();
         }
 
         function actualizarInterfaz() {
             const contenedor = document.getElementById('items-carrito');
             const totalTxt = document.getElementById('total-monto');
-            
             contenedor.innerHTML = '';
             total = 0;
 
-            carrito.forEach((item, index) => {
+            carrito.forEach((item) => {
                 total += item.precio * item.cantidad;
                 contenedor.innerHTML += `
                     <div class="cart-item">
-                        <span>${item.cantidad}x ${item.nombre}</span>
+                        <div>
+                            <strong>${item.cantidad}x</strong> ${item.nombre}
+                        </div>
                         <span>$${item.precio * item.cantidad}</span>
                     </div>
                 `;
             });
 
             if (carrito.length === 0) {
-                contenedor.innerHTML = '<p>El carrito está vacío</p>';
+                contenedor.innerHTML = '<p style="color: var(--texto-gris)">No hay productos seleccionados.</p>';
             }
-
-            totalTxt.innerText = `$${total}`;
+            totalTxt.innerText = `$${total.toLocaleString()}`;
         }
 
         function enviarPedido() {
             const nombre = document.getElementById('nombre-cliente').value;
-            const telefono = "5493512832957"; // Tu número aquí
+            const direccion = document.getElementById('direccion-cliente').value;
+            const telefono = "5493512832957"; 
 
             if (carrito.length === 0) {
-                alert("Agregá algo al carrito primero.");
+                alert("El carrito está vacío.");
                 return;
             }
-            if (!nombre) {
-                alert("Por favor, poné tu nombre.");
+            if (!nombre || !direccion) {
+                alert("Por favor completá tu nombre y dirección.");
                 return;
             }
 
-            let mensaje = `🍔 *Nuevo Pedido - Burger Gusto* \n`;
+            let mensaje = `🍔 *NUEVO PEDIDO - BURGER GUSTO* \n\n`;
             mensaje += `👤 *Cliente:* ${nombre}\n`;
+            mensaje += `📍 *Entrega:* ${direccion}\n`;
             mensaje += `----------------------------\n`;
             
             carrito.forEach(item => {
-                mensaje += `• ${item.cantidad}x ${item.nombre} ($${item.precio * item.cantidad})\n`;
+                mensaje += `• ${item.cantidad}x ${item.nombre} - $${(item.precio * item.cantidad).toLocaleString()}\n`;
             });
 
             mensaje += `----------------------------\n`;
-            mensaje += `💰 *TOTAL: $${total}*`;
+            mensaje += `💰 *TOTAL A PAGAR: $${total.toLocaleString()}*`;
 
             const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
