@@ -1,0 +1,299 @@
+index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Local - Pedidos Online</title>
+    <style>
+        :root {
+            --naranja: #f38d2a;
+            --naranja-oscuro: #d4761a;
+            --oscuro: #1a1d20;
+            --gris-card: #25292d;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--oscuro);
+            color: var(--blanco);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--oscuro);
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--naranja);
+            object-fit: cover;
+        }
+
+        nav {
+            background-color: var(--naranja);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-weight: bold;
+        }
+
+        nav span { cursor: pointer; }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Menu de Productos */
+        .menu-grid {
+            flex: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--gris-card);
+            border: 2px solid var(--naranja);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover { transform: scale(1.03); }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .price {
+            color: var(--naranja);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .btn-qty {
+            background: var(--oscuro);
+            border: 1px solid var(--naranja);
+            color: white;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-add {
+            background-color: var(--naranja);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        /* Carrito lateral */
+        .sidebar {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--gris-card);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--naranja);
+            height: fit-content;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #444;
+            padding: 10px 0;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            border-top: 2px solid var(--naranja);
+            padding-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.jpg" alt="Logo Hamburguesería" class="logo">
+        <h1>BURGER GUSTO</h1>
+    </header>
+
+    <nav>
+        <span>Hamburguesas</span>
+        <span>Acompañamientos</span>
+        <span>Bebidas</span>
+        <span>Contacto</span>
+    </nav>
+
+    <div class="container">
+        <div class="menu-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500" alt="Burger">
+                <h3>Doble Bacon Cheese</h3>
+                <p class="price">$8900</p>
+                <button class="btn-add" onclick="agregarAlCarrito('Doble Bacon Cheese', 8900)">Agregar al Carrito</button>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500" alt="Burger">
+                <h3>Clásica con Queso</h3>
+                <p class="price">$7500</p>
+                <button class="btn-add" onclick="agregarAlCarrito('Clásica con Queso', 7500)">Agregar al Carrito</button>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=500" alt="Burger">
+                <h3>Vegetariana Portobello</h3>
+                <p class="price">$8200</p>
+                <button class="btn-add" onclick="agregarAlCarrito('Vegetariana Portobello', 8200)">Agregar al Carrito</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>Tu Pedido 🛒</h3>
+            <div id="items-carrito">
+                <p>El carrito está vacío</p>
+            </div>
+            
+            <div class="total-section">
+                Total: <span id="total-monto">$0</span>
+            </div>
+
+            <hr>
+            <label>Tu Nombre:</label>
+            <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez">
+            
+            <button class="btn-whatsapp" onclick="enviarPedido()">
+                Finalizar Pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+        let total = 0;
+
+        function agregarAlCarrito(nombre, precio) {
+            // Buscar si el producto ya está en el carrito
+            const existe = carrito.find(item => item.nombre === nombre);
+            
+            if (existe) {
+                existe.cantidad++;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1 });
+            }
+            
+            actualizarInterfaz();
+        }
+
+        function actualizarInterfaz() {
+            const contenedor = document.getElementById('items-carrito');
+            const totalTxt = document.getElementById('total-monto');
+            
+            contenedor.innerHTML = '';
+            total = 0;
+
+            carrito.forEach((item, index) => {
+                total += item.precio * item.cantidad;
+                contenedor.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.cantidad}x ${item.nombre}</span>
+                        <span>$${item.precio * item.cantidad}</span>
+                    </div>
+                `;
+            });
+
+            if (carrito.length === 0) {
+                contenedor.innerHTML = '<p>El carrito está vacío</p>';
+            }
+
+            totalTxt.innerText = `$${total}`;
+        }
+
+        function enviarPedido() {
+            const nombre = document.getElementById('nombre-cliente').value;
+            const telefono = "5493512832957"; // Tu número aquí
+
+            if (carrito.length === 0) {
+                alert("Agregá algo al carrito primero.");
+                return;
+            }
+            if (!nombre) {
+                alert("Por favor, poné tu nombre.");
+                return;
+            }
+
+            let mensaje = `🍔 *Nuevo Pedido - Burger Gusto* \n`;
+            mensaje += `👤 *Cliente:* ${nombre}\n`;
+            mensaje += `----------------------------\n`;
+            
+            carrito.forEach(item => {
+                mensaje += `• ${item.cantidad}x ${item.nombre} ($${item.precio * item.cantidad})\n`;
+            });
+
+            mensaje += `----------------------------\n`;
+            mensaje += `💰 *TOTAL: $${total}*`;
+
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
